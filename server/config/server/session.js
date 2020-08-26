@@ -6,13 +6,12 @@ const secret = require('../secrets');
 module.exports = client => {
   // Session middleware
   const sessionMiddleware = session({
-    store: new RedisStore({ client }),
+    store: new RedisStore({ client: client, disableTouch: true }),
     secret: secret.sessionSecret,
     resave: false,
     saveUninitialized: false
   });
   
-  sessionMiddleware.store.touch = undefined; // hack to disable touch
 
   return { sessionMiddleware };
 };
