@@ -11,6 +11,8 @@ module.exports = client => {
     resave: false,
     saveUninitialized: false
   });
+  
+  sessionMiddleware.store.touch = undefined; // hack to disable touch
 
   return { sessionMiddleware };
 };
