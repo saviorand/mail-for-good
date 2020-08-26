@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const passport = require('passport');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const configureSequelize = require('./sequelize');
 const configureWebpackDevMiddleware = require('./webpack-dev-middleware');
@@ -30,7 +31,9 @@ module.exports = () => {
 
   // Configure io
   const io = configureIo(sessionMiddleware, server);
-
+  
+  app.use(cookieParser());
+  
   // Configure express & passport
   require('./passport')(passport); // Configure passport strategies & serialisation
   app.use(sessionMiddleware); // Use redis as session state handler
